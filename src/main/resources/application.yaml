@@ -2,7 +2,7 @@
 server:
   #  servlet:
   #    context-path: /example/path
-  port: 8080
+  port: 8088
 #Adds the option to go to eg. http://localhost:8080/actuator/health for seeing the running configuration
 #see https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html#actuator.endpoints
 management:
@@ -39,6 +39,12 @@ spring:
     enabled: false
     baselineOnMigrate: true
     fail-on-missing-locations: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: "http://localhost:8080/realms/test-realm/protocol/openid-connect/certs"
+
   datasource:
     #url: 'jdbc:h2:file:./target/database/h2'
     url: jdbc:h2:mem:test_mem
