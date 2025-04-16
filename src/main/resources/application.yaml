@@ -67,7 +67,7 @@ spring:
   #      hibernate.cache.use_minimal_puts: false
 
   ###    These settings will enable fulltext search with lucene or elastic
-      hibernate.search.enabled: false
+      hibernate.search.enabled: true
   ### lucene parameters
 #      hibernate.search.backend.type: lucene
 #      hibernate.search.backend.analysis.configurer: ca.uhn.fhir.jpa.search.HapiHSearchAnalysisConfigurers$HapiLuceneAnalysisConfigurer
@@ -155,7 +155,14 @@ hapi:
     ### Flag is true by default. This flag filters resources during package installation, allowing only those resources with a valid status (e.g. active) to be installed.
     #    validate_resource_status_for_package_upload: false 
     #    install_transitive_ig_dependencies: true
-    #implementationguides:
+#    implementationguides:
+#      ###    example from registry (packages.fhir.org)
+#      basis-de:
+#        name: de.basisprofil.r4
+#        packageUrl: classpath://de.basisprofil.r4-1.5.3-snapshots.tgz
+#        version: 1.5.3
+#        reloadExisting: true
+#        installMode: STORE_AND_INSTALL
     ###    example from registry (packages.fhir.org)
     #  swiss:
     #    name: swiss.mednet.fhir
@@ -233,10 +240,11 @@ hapi:
       - https://unitsofmeasure.org/*
       - http://loinc.org/*
       - https://loinc.org/*
-    #    partitioning:
-    #      allow_references_across_partitions: false
-    #      partitioning_include_in_search_hashes: false
-    #      conditional_create_duplicate_identifiers_enabled: false
+    partitioning:
+      allow_references_across_partitions: false
+      partitioning_include_in_search_hashes: false
+      conditional_create_duplicate_identifiers_enabled: false
+      request_tenant_partitioning_mode: true
     cors:
       allow_Credentials: true
       # These are allowed_origin patterns, see: https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/cors/CorsConfiguration.html#setAllowedOriginPatterns-java.util.List-
@@ -260,7 +268,7 @@ hapi:
     search_prefetch_thresholds: 13,503,2003,-1
 
     # comma-separated package names, will be @ComponentScan'ed by Spring to allow for creating custom Spring beans
-    #custom-bean-packages:
+    custom-bean-packages: de.gefyra
     
     # comma-separated list of fully qualified interceptor classes. 
     # classes listed here will be fetched from the Spring context when combined with 'custom-bean-packages', 
